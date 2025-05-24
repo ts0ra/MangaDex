@@ -5,7 +5,7 @@ import com.ts0ra.core.data.source.remote.response.MangaResponse
 import com.ts0ra.core.domain.model.Manga
 
 object DataMapper {
-    fun mapResponsesToEntities(input: List<MangaResponse>, coverArtUrl: String): List<MangaEntity> {
+    fun mapResponsesToEntities(input: List<MangaResponse>): List<MangaEntity> {
         val mangaList = ArrayList<MangaEntity>()
         input.map {
             val coverArtId = it.relationships!!
@@ -16,7 +16,7 @@ object DataMapper {
                 title = it.attributes!!.title!!.property1!!,
                 description = it.attributes.description!!.property1!!,
                 coverArtId = coverArtId!!,
-                coverArtFile = coverArtUrl,
+                coverArtFile = "", // Will be populated later when fetching cover
                 isFavorite = false,
             )
             mangaList.add(manga)
