@@ -19,5 +19,8 @@ data class MangaEntity(
     val coverArtId: String,
 
     @ColumnInfo
+    val coverArtFile: String,
+
+    @ColumnInfo
     var isFavorite: Boolean = false
 )
