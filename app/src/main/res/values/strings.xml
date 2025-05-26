@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MangaDex</string>
     <string name="title_favorite">Favorite</string>
+    <string name="content_description_favorite_button">Favorite Page</string>
+    <string name="something_wrong">Oops.. something went wrong</string>
+    <string name="no_data">Empty data</string>
+    <string name="detail_page_title">Manga Detail</string>
+    <string name="detail_page_description">Detail Page</string>
 </resources>
