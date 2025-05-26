@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "MangaDex"
 include(":app")
 include(":core")
+include(":favorite")

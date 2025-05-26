@@ -37,8 +37,13 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    dynamicFeatures += setOf(":favorite")
 }
 
 dependencies {
     implementation(project(":core"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
 }
