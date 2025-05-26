@@ -32,6 +32,10 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
                     })
                 }
             }
+        } else {
+            emitAll(loadFromDB().map {
+                Resource.Success(it)
+            })
         }
     }
 

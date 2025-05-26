@@ -1,8 +1,8 @@
-package com.ts0ra.core.data.source.remote.response
+package com.ts0ra.core.data.source.remote.response.mangalist
 
 import com.google.gson.annotations.SerializedName
 
-data class ListMangaResponse(
+data class MangaListResponse(
 
 	@field:SerializedName("result")
 	val result: String? = null,
@@ -11,7 +11,7 @@ data class ListMangaResponse(
 	val total: Int? = null,
 
 	@field:SerializedName("data")
-	val data: List<MangaResponse?>? = null,
+	val data: List<DataItem?>? = null,
 
 	@field:SerializedName("offset")
 	val offset: Int? = null,

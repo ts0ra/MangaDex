@@ -1,8 +1,8 @@
-package com.ts0ra.core.data.source.remote.response
+package com.ts0ra.core.data.source.remote.response.mangalist
 
 import com.google.gson.annotations.SerializedName
 
-data class TagsItem(
+data class DataItem(
 
 	@field:SerializedName("relationships")
 	val relationships: List<RelationshipsItem?>? = null,

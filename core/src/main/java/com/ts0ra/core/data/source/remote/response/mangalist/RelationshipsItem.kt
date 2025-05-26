@@ -1,11 +1,8 @@
-package com.ts0ra.core.data.source.remote.response
+package com.ts0ra.core.data.source.remote.response.mangalist
 
 import com.google.gson.annotations.SerializedName
 
 data class RelationshipsItem(
-
-	@field:SerializedName("related")
-	val related: String? = null,
 
 	@field:SerializedName("attributes")
 	val attributes: Attributes? = null,
@@ -14,5 +11,8 @@ data class RelationshipsItem(
 	val id: String? = null,
 
 	@field:SerializedName("type")
-	val type: String? = null
+	val type: String? = null,
+
+	@field:SerializedName("related")
+	val related: String? = null
 )

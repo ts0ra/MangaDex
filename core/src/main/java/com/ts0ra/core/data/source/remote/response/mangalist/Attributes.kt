@@ -1,4 +1,4 @@
-package com.ts0ra.core.data.source.remote.response
+package com.ts0ra.core.data.source.remote.response.mangalist
 
 import com.google.gson.annotations.SerializedName
 
@@ -63,6 +63,15 @@ data class Attributes(
 
 	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null,
+
+	@field:SerializedName("volume")
+	val volume: String? = null,
+
+	@field:SerializedName("fileName")
+	val fileName: String? = null,
+
+	@field:SerializedName("locale")
+	val locale: String? = null,
 
 	@field:SerializedName("name")
 	val name: Name? = null,

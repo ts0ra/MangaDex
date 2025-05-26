@@ -4,9 +4,8 @@ import android.util.Log
 import com.google.gson.JsonParser
 import com.ts0ra.core.data.source.remote.network.ApiResponse
 import com.ts0ra.core.data.source.remote.network.ApiService
-import com.ts0ra.core.data.source.remote.response.MangaResponse
-import com.ts0ra.core.data.source.remote.response.cover.CoverResponse
 import com.ts0ra.core.data.source.remote.response.cover.Data
+import com.ts0ra.core.data.source.remote.response.mangalist.DataItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +13,7 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 
 class RemoteDataSource(private val apiService: ApiService) {
-    suspend fun getAllManga(): Flow<ApiResponse<List<MangaResponse>>> {
+    suspend fun getAllManga(): Flow<ApiResponse<List<DataItem>>> {
         return flow {
             try {
                 val response = apiService.getMangaList()

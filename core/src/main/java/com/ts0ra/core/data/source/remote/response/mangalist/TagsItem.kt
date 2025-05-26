@@ -1,11 +1,11 @@
-package com.ts0ra.core.data.source.remote.response
+package com.ts0ra.core.data.source.remote.response.mangalist
 
 import com.google.gson.annotations.SerializedName
 
-data class MangaResponse(
+data class TagsItem(
 
 	@field:SerializedName("relationships")
-	val relationships: List<RelationshipsItem?>? = null,
+	val relationships: List<Any?>? = null,
 
 	@field:SerializedName("attributes")
 	val attributes: Attributes? = null,
