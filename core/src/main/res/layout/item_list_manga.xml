@@ -3,15 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="280dp"
+    android:layout_gravity="center"
+    android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="6dp"
-    android:layout_margin="8dp">
+    app:cardElevation="6dp">
 
     <LinearLayout
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
         android:orientation="vertical">
 
         <ImageView
@@ -19,17 +20,20 @@
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:scaleType="centerCrop"
-            android:contentDescription="@string/image_description" />
+            android:contentDescription="@string/image_description"
+            tools:src="@drawable/cover_art"/>
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/manga_title"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="14dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            tools:text="@string/manga_title"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:maxLines="2"
+            android:maxLines="1"
             android:ellipsize="end" />
     </LinearLayout>
 

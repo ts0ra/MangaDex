@@ -4,17 +4,17 @@ import com.ts0ra.core.data.source.local.LocalDataSource
 import com.ts0ra.core.data.source.local.entity.MangaEntity
 import com.ts0ra.core.data.source.remote.RemoteDataSource
 import com.ts0ra.core.data.source.remote.network.ApiResponse
-import com.ts0ra.core.data.source.remote.response.MangaResponse
+import com.ts0ra.core.data.source.remote.response.mangalist.DataItem
 import com.ts0ra.core.domain.model.Manga
 import com.ts0ra.core.domain.repository.IMangaRepository
 import com.ts0ra.core.utils.AppExecutors
 import com.ts0ra.core.utils.DataMapper
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 
 class MangaRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -22,7 +22,7 @@ class MangaRepository(
     private val appExecutors: AppExecutors
 ) : IMangaRepository {
     override fun getAllManga(): Flow<Resource<List<Manga>>> =
-        object : NetworkBoundResource<List<Manga>, List<MangaResponse>>() {
+        object : NetworkBoundResource<List<Manga>, List<DataItem>>() {
             override fun loadFromDB(): Flow<List<Manga>> {
                 return localDataSource.getAllManga().map {
                     DataMapper.mapEntitiesToDomain(it)
@@ -31,10 +31,10 @@ class MangaRepository(
 
             override fun shouldFetch(data: List<Manga>?): Boolean = data.isNullOrEmpty()
 
-            override suspend fun createCall(): Flow<ApiResponse<List<MangaResponse>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<DataItem>>> =
                 remoteDataSource.getAllManga()
 
-            override suspend fun saveCallResult(data: List<MangaResponse>) {
+            override suspend fun saveCallResult(data: List<DataItem>) {
                 val mangaList = DataMapper.mapResponsesToEntities(data)
 
                 // Fetch all covers concurrently for better performance
@@ -55,10 +55,10 @@ class MangaRepository(
                                             isFavorite = manga.isFavorite
                                         )
                                     }
-                                    else -> manga // Keep original if cover fetch fails
+                                    else -> manga
                                 }
                             } catch (e: Exception) {
-                                manga // Keep original if there's an exception
+                                manga
                             }
                         }
                     }.awaitAll()

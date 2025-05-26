@@ -2,4 +2,6 @@
 <resources>
     <string name="image_description">Cover Art</string>
     <string name="manga_title">Sample of title text</string>
+    <string name="manga_description">Sample of description lorem ipsum sir dolor amet</string>
+    <string name="btn_favorite">Favorite</string>
 </resources>

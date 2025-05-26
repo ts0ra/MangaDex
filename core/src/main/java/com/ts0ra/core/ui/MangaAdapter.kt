@@ -1,11 +1,14 @@
 package com.ts0ra.core.ui
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
+import com.ts0ra.core.R
 import com.ts0ra.core.databinding.ItemListMangaBinding
 import com.ts0ra.core.domain.model.Manga
 
@@ -30,8 +33,10 @@ class MangaAdapter : ListAdapter<Manga, MangaAdapter.ListViewHolder>(DIFF_CALLBA
     inner class ListViewHolder(private var binding: ItemListMangaBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Manga) {
+            val imageUrl = "https://uploads.mangadex.org/covers/${data.mangaId}/${data.coverArtFile}"
             Glide.with(itemView.context)
-                .load("https://uploads.mangadex.org/covers/${data.mangaId}/${data.coverArtFile}")
+                .load(imageUrl)
+                .error(R.drawable.cover_error)
                 .into(binding.imageCoverArt)
             binding.textTitle.text = data.title
         }

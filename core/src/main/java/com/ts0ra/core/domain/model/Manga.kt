@@ -10,5 +10,5 @@ data class Manga(
     val description: String,
     val coverArtId: String,
     val coverArtFile: String,
-    val isFavorite: Boolean
+    var isFavorite: Boolean
 ) : Parcelable
