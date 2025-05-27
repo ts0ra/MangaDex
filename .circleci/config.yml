@@ -17,6 +17,7 @@ workflows:
 
 jobs:
   build-and-test:
+    executor: android/android
     working_directory: ~/code
     docker:
       - image: cimg/android:2024.01.1
@@ -55,6 +56,7 @@ jobs:
             - .
 
   lint:
+    executor: android/android
     working_directory: ~/code
     docker:
       - image: cimg/android:2024.01.1
