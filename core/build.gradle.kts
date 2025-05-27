@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     api(libs.androidx.recyclerview)
     androidTestImplementation(libs.androidx.espresso.core)
+    debugImplementation(libs.leakcanary.android)
 
     // Room
     ksp(libs.androidx.room.compiler)
