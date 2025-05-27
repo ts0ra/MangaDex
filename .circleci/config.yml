@@ -22,9 +22,11 @@ jobs:
       - image: cimg/android:2024.01.1
     environment:
       JVM_OPTS: -Xmx3200m
-      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"
-    steps:
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"    steps:
       - checkout
+      - run:
+          name: Make gradlew executable
+          command: chmod +x ./gradlew
       - restore_cache:
           key: jars-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}-{{ checksum "core/build.gradle.kts" }}-{{ checksum "favorite/build.gradle.kts" }}-{{ checksum "gradle/libs.versions.toml" }}
       - run:
@@ -57,10 +59,12 @@ jobs:
       - image: cimg/android:2024.01.1
     environment:
       JVM_OPTS: -Xmx3200m
-      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"
-    steps:
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"    steps:
       - attach_workspace:
           at: ~/code
+      - run:
+          name: Make gradlew executable
+          command: chmod +x ./gradlew
       - run:
           name: Run Lint
           command: ./gradlew lintDebug
@@ -80,10 +84,12 @@ jobs:
       - image: cimg/android:2024.01.1
     environment:
       JVM_OPTS: -Xmx3200m
-      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"
-    steps:
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"    steps:
       - attach_workspace:
           at: ~/code
+      - run:
+          name: Make gradlew executable
+          command: chmod +x ./gradlew
       - run:
           name: Run Unit Tests
           command: ./gradlew testDebugUnitTest
@@ -114,10 +120,12 @@ jobs:
     resource_class: large
     environment:
       JVM_OPTS: -Xmx3200m
-      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"
-    steps:
+      GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"    steps:
       - attach_workspace:
           at: ~/code
+      - run:
+          name: Make gradlew executable
+          command: chmod +x ./gradlew
       - run:
           name: Setup emulator
           command: |
