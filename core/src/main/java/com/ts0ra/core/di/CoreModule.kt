@@ -8,6 +8,8 @@ import com.ts0ra.core.data.source.remote.RemoteDataSource
 import com.ts0ra.core.data.source.remote.network.ApiService
 import com.ts0ra.core.domain.repository.IMangaRepository
 import com.ts0ra.core.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -19,10 +21,14 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<MangaDatabase>().mangaDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             MangaDatabase::class.java, "Manga.db"
-        ).fallbackToDestructiveMigration(false).build()
+        ).fallbackToDestructiveMigration(false)
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
