@@ -1,37 +1,30 @@
-# Consumer rules for core module
-# These rules are applied to consuming modules (like app module)
+# --- Java invoke (if needed) ---
+-dontwarn java.lang.invoke.StringConcatFactory
 
-# Keep all public API classes from core module
--keep public class com.ts0ra.core.** { *; }
-
-# Keep data classes and sealed classes
--keep class com.ts0ra.core.data.Resource { *; }
--keep class com.ts0ra.core.data.Resource$* { *; }
+# --- Your Application Core ---
+-keep class com.ts0ra.core.** { *; } # Or -keep public class com.ts0ra.core.** { *; }
+# Keep specific sub-packages if the general core rule isn't desired or if you need to be more granular later.
+# If using the general core rule above, these might be redundant but offer clarity.
+-keep class com.ts0ra.core.data.** { *; }
 -keep class com.ts0ra.core.domain.model.** { *; }
 -keep class com.ts0ra.core.domain.repository.** { *; }
 -keep class com.ts0ra.core.domain.usecase.** { *; }
-
-# Keep UI components
 -keep class com.ts0ra.core.ui.** { *; }
-
-# Keep DI modules that are referenced by consuming modules
 -keep class com.ts0ra.core.di.** { *; }
 
-# Keep ViewBinding classes
--keep class * extends androidx.viewbinding.ViewBinding {
-    public static *** inflate(...);
-    public static *** bind(...);
+# --- Retrofit ---
+-keepattributes RuntimeVisibleAnnotations, RuntimeVisibleParameterAnnotations, AnnotationDefault # Signature, InnerClasses, EnclosingMethod are covered by the Kotlin comprehensive rule
+-keepclassmembers,allowshrinking,allowobfuscation interface * {
+    @retrofit2.http.* <methods>;
 }
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn javax.annotation.**
+-dontwarn kotlin.Unit
+-dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions$*
 
-# Keep Kotlin metadata
--keepattributes *Annotation*
--keepattributes Signature
--keepattributes InnerClasses
--keepattributes EnclosingMethod
-
-# Keep Gson serialization
--keepattributes Signature
--keepattributes *Annotation*
+# --- Gson ---
+# Signature and *Annotation* for attributes are covered by the Kotlin comprehensive rule
 -dontwarn sun.misc.**
 -keep class com.google.gson.** { *; }
 -keep class * extends com.google.gson.TypeAdapter
@@ -39,25 +32,45 @@
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
 -keepclassmembers,allowobfuscation class * {
-  @com.google.gson.annotations.SerializedName <fields>;
+    @com.google.gson.annotations.SerializedName <fields>;
 }
 
-# Keep Room database classes
--keep class * extends androidx.room.RoomDatabase
--keep @androidx.room.Entity class *
--dontwarn androidx.room.paging.**
-
-# Keep Kotlin standard library classes used by lazy initialization and other features
--keep class kotlin.LazyKt { *; }
--keep class kotlin.UnsafeLazyImpl { *; } # Often used with Lazy
--keep class kotlin.InitializedLazyImpl { *; } # Another implementation
--keep class kotlin.SynchronizedLazyImpl { *; } # Another common implementation
-
-# General rules for Kotlin, often recommended:
+# --- Kotlin General & Metadata ---
+-keepattributes Exceptions, InnerClasses, Signature, Deprecated, SourceFile, LineNumberTable, *Annotation*, EnclosingMethod, KotlinԴMetadata
 -dontwarn kotlin.**
 -keep class kotlin.** { *; }
 -keep class kotlinx.** { *; } # If you use coroutines or serialization
--keepattributes Exceptions, InnerClasses, Signature, Deprecated, SourceFile, LineNumberTable, *Annotation*, EnclosingMethod, KotlinԴMetadata
-
-# Keep all Kotlin metadata annotations
 -keep class kotlin.Metadata { *; }
+-keep class kotlin.LazyKt { *; }
+-keep class kotlin.UnsafeLazyImpl { *; }
+-keep class kotlin.InitializedLazyImpl { *; }
+-keep class kotlin.SynchronizedLazyImpl { *; }
+# (Potentially other specific kotlin.jvm.internal rules if needed, yours look okay for general use)
+
+# --- Koin ---
+-keep class org.koin.** { *; }
+-keep class * extends org.koin.core.module.Module
+-keepclassmembers class * {
+    @org.koin.core.annotation.* <methods>;
+}
+
+# --- Glide ---
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule { <init>(...); }
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** { **[] $VALUES; public *; }
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder { *** rewind(); }
+
+# --- SQLCipher ---
+-keep class net.sqlcipher.** { *; }
+-dontwarn net.sqlcipher.**
+
+# --- ViewBinding ---
+-keep class * extends androidx.viewbinding.ViewBinding {
+    public static *** inflate(...);
+    public static *** bind(...);
+}
+
+# --- Room ---
+-keep class * extends androidx.room.RoomDatabase
+-keep @androidx.room.Entity class *
+-dontwarn androidx.room.paging.**
