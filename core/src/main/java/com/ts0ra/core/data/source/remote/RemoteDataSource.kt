@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 
 class RemoteDataSource(private val apiService: ApiService) {
-    suspend fun getAllManga(): Flow<ApiResponse<List<DataItem>>> {
+    fun getAllManga(): Flow<ApiResponse<List<DataItem>>> {
         return flow {
             try {
                 val response = apiService.getMangaList()
@@ -40,7 +40,7 @@ class RemoteDataSource(private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getCover(id: String): Flow<ApiResponse<Data>> {
+    fun getCover(id: String): Flow<ApiResponse<Data>> {
         return flow {
             try {
                 val response = apiService.getCover(id)

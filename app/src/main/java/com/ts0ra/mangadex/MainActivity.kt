@@ -1,11 +1,11 @@
 package com.ts0ra.mangadex
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToFavorite() {
         binding.btnFavorite.setOnClickListener {
-            val uri = Uri.parse("mangadex://favorite")
+            val uri = "mangadex://favorite".toUri()
             startActivity(Intent(Intent.ACTION_VIEW, uri))
         }
     }

@@ -1,13 +1,11 @@
 package com.ts0ra.core.ui
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.ts0ra.core.R
 import com.ts0ra.core.databinding.ItemListMangaBinding
 import com.ts0ra.core.domain.model.Manga
