@@ -3,6 +3,7 @@ package com.ts0ra.mangadex
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -41,8 +42,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateToFavorite() {
         binding.btnFavorite.setOnClickListener {
-            val uri = "mangadex://favorite".toUri()
-            startActivity(Intent(Intent.ACTION_VIEW, uri))
+            try {
+                startActivity(Intent(this, Class.forName("com.ts0ra.favorite.FavoriteActivity")))
+            } catch (e: Exception) {
+                Toast.makeText(this, "Module not found", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
