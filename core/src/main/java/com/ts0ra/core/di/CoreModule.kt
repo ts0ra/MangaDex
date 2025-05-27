@@ -10,6 +10,7 @@ import com.ts0ra.core.domain.repository.IMangaRepository
 import com.ts0ra.core.utils.AppExecutors
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -34,10 +35,17 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
+        val hostname = "api.mangadex.org"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/uR/2lm3YfmSpxOYj4Us0KozMmRu5GvJO2kMuLLVm24Y=")
+            .add(hostname, "sha256/0Bbh/jEZSKymTy3kTOhsmlHKBB32EDu1KojrP3YfV9c=")
+            .add(hostname, "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=")
+            .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {
